@@ -49,4 +49,6 @@ evdev:name:Power Button:dmi:*svnOrangePi:*
 evdev:name:AT Translated Set 2 keyboard:dmi:*svnValve:*
 # ZOTAC Gaming Zone
 evdev:name:Power Button:dmi:*svnZOTAC:*rnG0A1W:*
+# ZOTAC Gaming Zone Pro
+evdev:name:Power Button:dmi:*svnZOTAC:*rnG1A1W:*
  STEAMOS_POWER_BUTTON=1
