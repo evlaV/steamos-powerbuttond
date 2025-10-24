@@ -187,7 +187,8 @@ int main(int argc, char* argv[]) {
 						if (ev.value == 1) {
 							press_active = true;
 							alarm(1);
-						} else if (press_active) {
+						} else if (ev.value == 0 && press_active) {
+							press_active = false;
 							do_press("short");
 						}
 					} else if (ev.code == KEY_LEFTMETA && ev.value == 1) {
