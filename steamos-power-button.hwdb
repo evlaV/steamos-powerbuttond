@@ -5,9 +5,9 @@ evdev:name:Power Button:dmi:*svnASUSTeKCOMPUTERINC.:*rnRC72LA:*
 # ASUS ROG Flow Z13 (2025)
 evdev:name:gpio-keys:dmi:*svnASUSTeKCOMPUTERINC.:*rnGZ302EA:*
 # ASUS ROG Xbox Ally
-evdev:name:Power Button:dmi:*svnASUSTeKCOMPUTERINC.:*rnRC73YA:*
+evdev:name:gpio-keys:dmi:*svnASUSTeKCOMPUTERINC.:*rnRC73YA:*
 # ASUS ROG Xbox Ally X
-evdev:name:Power Button:dmi:*svnASUSTeKCOMPUTERINC.:*rnRC73XA:*
+evdev:name:gpio-keys:dmi:*svnASUSTeKCOMPUTERINC.:*rnRC73XA:*
 # AYANEO
 evdev:name:AT Translated Set 2 keyboard:dmi:*svnAYANEO:*
 evdev:name:Power Button:dmi:*svnAYANEO:*
