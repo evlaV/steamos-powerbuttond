@@ -30,9 +30,9 @@ evdev:name:Power Button:dmi:*svnLENOVO:pn83Q2:*
 evdev:name:AT Translated Set 2 keyboard:dmi:*svnLENOVO:pn83Q3:*
 evdev:name:Power Button:dmi:*svnLENOVO:pn83Q3:*
 # Lenovo Legion Go 2
-evdev:name:AT Translated Set 2 keyboard:dmi:*svnLENOVO:pn83N0:*
+evdev:name:AT Raw Set 2 keyboard:dmi:*svnLENOVO:pn83N0:*
 evdev:name:Power Button:dmi:*svnLENOVO:pn83N0:*
-evdev:name:AT Translated Set 2 keyboard:dmi:*svnLENOVO:pn83N1:*
+evdev:name:AT Raw Set 2 keyboard:dmi:*svnLENOVO:pn83N1:*
 evdev:name:Power Button:dmi:*svnLENOVO:pn83N1:*
 # MSI
 evdev:name:Power Button:dmi:*svnMicro-StarInternationalCo.,Ltd.:pnClawA1M:*
