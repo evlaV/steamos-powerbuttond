@@ -89,7 +89,8 @@ size_t find_devs(struct libevdev* devs[], bool known_only) {
 				continue;
 			}
 			if (!libevdev_has_event_code(evdev, EV_KEY, KEY_POWER)
-			    && !libevdev_has_event_code(evdev, EV_KEY, KEY_LEFTMETA)) {
+			    && !libevdev_has_event_code(evdev, EV_KEY, KEY_LEFTMETA)
+			    && !libevdev_has_event_code(evdev, EV_SW, SW_LID)) {
 				continue;
 			}
 			printf("Found power button device at %s\n", devpath);
@@ -216,6 +217,11 @@ int main(int argc, char* argv[]) {
 					} else if (handheld && ev.code == KEY_LEFTMETA && ev.value == 1) {
 						press_active = false;
 						do_press("long");
+					}
+				} else if (ev.type == EV_SW) {
+					if (ev.code == SW_LID && ev.value == 1) {
+						press_active = false;
+						do_press("short");
 					}
 				}
 			} while (libevdev_has_event_pending(devs[i]) > 0);
