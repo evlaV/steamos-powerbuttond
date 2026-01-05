@@ -41,7 +41,7 @@ struct libevdev* open_dev(const char* path) {
 	return dev;
 }
 
-size_t find_devs(struct libevdev* devs[], bool known_only) {
+size_t find_devs(struct libevdev* devs[]) {
 	struct udev* udev = udev_new();
 	size_t num_devs = 0;
 	if (!udev) {
@@ -60,14 +60,8 @@ size_t find_devs(struct libevdev* devs[], bool known_only) {
 		goto out;
 	}
 
-	if (known_only) {
-		if (udev_enumerate_add_match_property(uenum, "STEAMOS_POWER_BUTTON", "1") < 0) {
-			goto out;
-		}
-	} else {
-		if (udev_enumerate_add_match_tag(uenum, "power-switch") < 0) {
-			goto out;
-		}
+	if (udev_enumerate_add_match_property(uenum, "STEAMOS_POWER_BUTTON", "1") < 0) {
+		goto out;
 	}
 
 	if (udev_enumerate_scan_devices(uenum) < 0) {
@@ -85,17 +79,11 @@ size_t find_devs(struct libevdev* devs[], bool known_only) {
 		const char* devpath = udev_device_get_devnode(dev);
 		if (devpath) {
 			struct libevdev* evdev = open_dev(devpath);
-			if (!evdev) {
-				continue;
+			if (evdev) {
+				printf("Found power button device at %s\n", devpath);
+				devs[num_devs] = evdev;
+				++num_devs;
 			}
-			if (!libevdev_has_event_code(evdev, EV_KEY, KEY_POWER)
-			    && !libevdev_has_event_code(evdev, EV_KEY, KEY_LEFTMETA)
-			    && !libevdev_has_event_code(evdev, EV_SW, SW_LID)) {
-				continue;
-			}
-			printf("Found power button device at %s\n", devpath);
-			devs[num_devs] = evdev;
-			++num_devs;
 		}
 		udev_device_unref(dev);
 	}
@@ -145,7 +133,6 @@ int main(int argc, char* argv[]) {
 	struct libevdev* devs[MAX_DEVS] = {0};
 	struct pollfd pfds[MAX_DEVS] = {0};
 	size_t num_devs = 0;
-	bool handheld = true;
 
 	if (argc >= 2) {
 		int i;
@@ -156,11 +143,7 @@ int main(int argc, char* argv[]) {
 			}
 		}
 	} else {
-		num_devs = find_devs(devs, true);
-	}
-	if (!num_devs) {
-		handheld = false;
-		num_devs = find_devs(devs, false);
+		num_devs = find_devs(devs);
 	}
 	if (!num_devs) {
 		return 0;
@@ -206,15 +189,9 @@ int main(int argc, char* argv[]) {
 							alarm(1);
 						} else if (ev.value == 0 && press_active) {
 							press_active = false;
-							// Short presses suspend the device. On a non-handheld we want to
-							// bring up the power menu instead, which is a long press.
-							if (handheld) {
-								do_press("short");
-							} else {
-								do_press("long");
-							}
+							do_press("short");
 						}
-					} else if (handheld && ev.code == KEY_LEFTMETA && ev.value == 1) {
+					} else if (ev.code == KEY_LEFTMETA && ev.value == 1) {
 						press_active = false;
 						do_press("long");
 					}
