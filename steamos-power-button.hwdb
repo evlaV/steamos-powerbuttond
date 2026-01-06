@@ -54,3 +54,21 @@ evdev:name:Power Button:dmi:*svnZOTAC:*rnG0A1W:*
 # ZOTAC Gaming Zone Pro
 evdev:name:Power Button:dmi:*svnZOTAC:*rnG1A1W:*
  STEAMOS_POWER_BUTTON=1
+
+# Temporary scancode overrides -- remove these once they get upstreamed into systemd
+# AYA NEO
+evdev:name:AT Translated Set 2 keyboard:dmi:*svnAYA NEO:*
+evdev:name:AT Translated Set 2 keyboard:dmi:*svnAYADEVICE:*
+# Lenovo Legion Go
+evdev:name:AT Translated Set 2 keyboard:dmi:*svnLENOVO:pn83E1:*
+# Lenovo Legion Go S
+evdev:name:AT Translated Set 2 keyboard:dmi:*svnLENOVO:pn83L3:*
+evdev:name:AT Translated Set 2 keyboard:dmi:*svnLENOVO:pn83N6:*
+evdev:name:AT Translated Set 2 keyboard:dmi:*svnLENOVO:pn83Q2:*
+evdev:name:AT Translated Set 2 keyboard:dmi:*svnLENOVO:pn83Q3:*
+ KEYBOARD_KEY_67=f16
+
+# Lenovo Legion Go 2
+evdev:name:AT Raw Set 2 keyboard:dmi:*svnLENOVO:pn83N0:*
+evdev:name:AT Raw Set 2 keyboard:dmi:*svnLENOVO:pn83N1:*
+ KEYBOARD_KEY_20=f16
