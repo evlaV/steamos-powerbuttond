@@ -17,7 +17,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#define MAX_DEVS 2
+#define MAX_DEVS 10
 
 #define MOD_LSHIFT 0x01
 #define MOD_RSHIFT 0x02
