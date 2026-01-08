@@ -100,6 +100,9 @@ size_t find_devs(struct evdev_context* devs) {
 		if (!dev) {
 			continue;
 		}
+		if (udev_device_get_property_value(dev, "STEAMOS_POWER_BUTTON_IGNORE")) {
+			continue;
+		}
 		const char* devpath = udev_device_get_devnode(dev);
 		if (devpath) {
 			if (open_dev(devpath, &devs[num_devs])) {

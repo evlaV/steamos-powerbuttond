@@ -6,6 +6,10 @@ id-input:modalias:input:*,1,*k*74*
 id-input:modalias:input:*,1,*k*BA*
  STEAMOS_POWER_BUTTON=1
 
+evdev:name:Power Button:dmi:*svnValve:pnJupiter:*
+evdev:name:Power Button:dmi:*svnValve:pnGalileo:*
+ STEAMOS_POWER_BUTTON_IGNORE=1
+
 # Temporary scancode overrides -- remove these once they get upstreamed into systemd
 # AYA NEO
 evdev:name:AT Translated Set 2 keyboard:dmi:*svnAYA NEO:*
