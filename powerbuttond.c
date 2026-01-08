@@ -34,14 +34,19 @@
 
 extern char** environ;
 static bool got_alarm = false;
+static bool got_hup = false;
 
 struct evdev_context {
 	struct libevdev* dev;
 	int modifiers;
 };
 
-void signal_handler(int) {
+void alarm_handler(int) {
 	got_alarm = true;
+}
+
+void hup_handler(int) {
+	got_hup = true;
 }
 
 bool open_dev(const char* path, struct evdev_context* ctx) {
@@ -148,13 +153,28 @@ void steam_message(const char* type) {
 	}
 }
 
+void close_devs(struct evdev_context* devs, size_t num_devs) {
+	size_t i;
+	for (i = 0; i < num_devs; ++i) {
+		int fd = libevdev_get_fd(devs[i].dev);
+		libevdev_free(devs[i].dev);
+		if (fd >= 0) {
+			close(fd);
+		}
+		memset(&devs[i], 0, sizeof(*devs));
+	}
+}
+
 int main(int argc, char* argv[]) {
-	struct sigaction sa = {
-		.sa_handler = signal_handler,
-		.sa_flags = SA_NOCLDSTOP,
-	};
+	struct sigaction sa = {0};
+
+	sa.sa_handler = alarm_handler;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGALRM, &sa, NULL);
+
+	sa.sa_handler = hup_handler;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGHUP, &sa, NULL);
 
 	struct evdev_context devs[MAX_DEVS] = {0};
 	struct pollfd pfds[MAX_DEVS] = {0};
@@ -174,13 +194,21 @@ int main(int argc, char* argv[]) {
 		return 0;
 	}
 	size_t i;
-	for (i = 0; i < num_devs; ++i) {
-		pfds[i].fd = libevdev_get_fd(devs[i].dev);
+	for (i = 0; i < MAX_DEVS; ++i) {
 		pfds[i].events = POLLIN;
 	}
 
 	bool press_active = false;
 	while (true) {
+		if (got_hup) {
+			got_hup = false;
+			close_devs(devs, num_devs);
+			num_devs = find_devs(devs);
+			if (!num_devs) {
+				break;
+			}
+		}
+
 		for (i = 0; i < num_devs; ++i) {
 			pfds[i].fd = libevdev_get_fd(devs[i].dev);
 			pfds[i].revents = 0;
@@ -281,10 +309,17 @@ int main(int argc, char* argv[]) {
 					}
 				}
 			} while (libevdev_has_event_pending(ctx->dev) > 0);
-			if (res == -EINTR && press_active && got_alarm) {
-				press_active = false;
-				steam_message("longpowerpress");
+			if (res == -EINTR) {
+				if (press_active && got_alarm) {
+					press_active = false;
+					steam_message("longpowerpress");
+				} else if (got_hup) {
+					break;
+				}
 			}
 		}
 	}
+
+	close_devs(devs, num_devs);
+	return 0;
 }
