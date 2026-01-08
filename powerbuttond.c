@@ -248,51 +248,51 @@ int main(int argc, char* argv[]) {
 						}
 						break;
 					case KEY_LEFTSHIFT:
-						devs[i].modifiers &= ~MOD_LSHIFT;
+						ctx->modifiers &= ~MOD_LSHIFT;
 						if (ev.value > 0) {
-							devs[i].modifiers |= MOD_LSHIFT;
+							ctx->modifiers |= MOD_LSHIFT;
 						}
 						break;
 					case KEY_RIGHTSHIFT:
-						devs[i].modifiers &= ~MOD_RSHIFT;
+						ctx->modifiers &= ~MOD_RSHIFT;
 						if (ev.value > 0) {
-							devs[i].modifiers |= MOD_RSHIFT;
+							ctx->modifiers |= MOD_RSHIFT;
 						}
 						break;
 					case KEY_LEFTCTRL:
-						devs[i].modifiers &= ~MOD_LCTRL;
+						ctx->modifiers &= ~MOD_LCTRL;
 						if (ev.value > 0) {
-							devs[i].modifiers |= MOD_LCTRL;
+							ctx->modifiers |= MOD_LCTRL;
 						}
 						break;
 					case KEY_RIGHTCTRL:
-						devs[i].modifiers &= ~MOD_RCTRL;
+						ctx->modifiers &= ~MOD_RCTRL;
 						if (ev.value > 0) {
-							devs[i].modifiers |= MOD_RCTRL;
+							ctx->modifiers |= MOD_RCTRL;
 						}
 						break;
 					case KEY_LEFTALT:
-						devs[i].modifiers &= ~MOD_LALT;
+						ctx->modifiers &= ~MOD_LALT;
 						if (ev.value > 0) {
-							devs[i].modifiers |= MOD_LALT;
+							ctx->modifiers |= MOD_LALT;
 						}
 						break;
 					case KEY_RIGHTALT:
-						devs[i].modifiers &= ~MOD_RALT;
+						ctx->modifiers &= ~MOD_RALT;
 						if (ev.value > 0) {
-							devs[i].modifiers |= MOD_RALT;
+							ctx->modifiers |= MOD_RALT;
 						}
 						break;
 					case KEY_LEFTMETA:
-						devs[i].modifiers &= ~MOD_LMETA;
+						ctx->modifiers &= ~MOD_LMETA;
 						if (ev.value > 0) {
-							devs[i].modifiers |= MOD_LMETA;
+							ctx->modifiers |= MOD_LMETA;
 						}
 						break;
 					case KEY_RIGHTMETA:
-						devs[i].modifiers &= ~MOD_RMETA;
+						ctx->modifiers &= ~MOD_RMETA;
 						if (ev.value > 0) {
-							devs[i].modifiers |= MOD_RMETA;
+							ctx->modifiers |= MOD_RMETA;
 						}
 						break;
 					case KEY_F16:
