@@ -1,58 +1,9 @@
-# ASUS ROG Ally
-evdev:name:Power Button:dmi:*svnASUSTeKCOMPUTERINC.:*rnRC71L:*
-# ASUS ROG Ally X
-evdev:name:Power Button:dmi:*svnASUSTeKCOMPUTERINC.:*rnRC72LA:*
-# ASUS ROG Flow Z13 (2025)
-evdev:name:gpio-keys:dmi:*svnASUSTeKCOMPUTERINC.:*rnGZ302EA:*
-# ASUS ROG Xbox Ally
-evdev:name:gpio-keys:dmi:*svnASUSTeKCOMPUTERINC.:*rnRC73YA:*
-# ASUS ROG Xbox Ally X
-evdev:name:gpio-keys:dmi:*svnASUSTeKCOMPUTERINC.:*rnRC73XA:*
-# AYANEO
-evdev:atkbd:dmi:*svnAYA NEO:*
-evdev:name:Power Button:dmi:*svnAYA NEO:*
-evdev:atkbd:dmi:*svnAYANEO:*
-evdev:name:Power Button:dmi:*svnAYANEO:*
-# AYN
-evdev:atkbd:dmi:*svnayn:*
-evdev:name:Power Button:dmi:*svnayn:*
-# GPD
-evdev:atkbd:dmi:*svnGPD:*
-evdev:name:Power Button:dmi:*svnGPD:*
-# Lenovo Legion Go
-evdev:atkbd:dmi:*svnLENOVO:pn83E1:*
-evdev:name:Power Button:dmi:*svnLENOVO:pn83E1:*
-# Lenovo Legion Go S
-evdev:atkbd:dmi:*svnLENOVO:pn83L3:*
-evdev:name:Power Button:dmi:*svnLENOVO:pn83L3:*
-evdev:atkbd:dmi:*svnLENOVO:pn83N6:*
-evdev:name:Power Button:dmi:*svnLENOVO:pn83N6:*
-evdev:atkbd:dmi:*svnLENOVO:pn83Q2:*
-evdev:name:Power Button:dmi:*svnLENOVO:pn83Q2:*
-evdev:atkbd:dmi:*svnLENOVO:pn83Q3:*
-evdev:name:Power Button:dmi:*svnLENOVO:pn83Q3:*
-# Lenovo Legion Go 2
-evdev:atkbd:dmi:*svnLENOVO:pn83N0:*
-evdev:name:Power Button:dmi:*svnLENOVO:pn83N0:*
-evdev:atkbd:dmi:*svnLENOVO:pn83N1:*
-evdev:name:Power Button:dmi:*svnLENOVO:pn83N1:*
-# MSI
-evdev:name:Power Button:dmi:*svnMicro-StarInternationalCo.,Ltd.:pnClawA1M:*
-evdev:name:Power Button:dmi:*svnMicro-StarInternationalCo.,Ltd.:pnClaw7AI+A2VM:*
-evdev:name:Power Button:dmi:*svnMicro-StarInternationalCo.,Ltd.:pnClaw8AI+A2VM:*
-evdev:name:Power Button:dmi:*svnMicro-StarInternationalCo.,Ltd.:pnClawA8BZ2EM:*
-# ONEXPLAYER
-evdev:atkbd:dmi:*svnONE-NETBOOK:*
-evdev:name:Power Button:dmi:*svnONE-NETBOOK:*
-# OrangePi
-evdev:atkbd:dmi:*svnOrangePi:*
-evdev:name:Power Button:dmi:*svnOrangePi:*
-# Steam Deck
-evdev:atkbd:dmi:*svnValve:*
-# ZOTAC Gaming Zone
-evdev:name:Power Button:dmi:*svnZOTAC:*rnG0A1W:*
-# ZOTAC Gaming Zone Pro
-evdev:name:Power Button:dmi:*svnZOTAC:*rnG1A1W:*
+# SW_LID
+id-input:modalias:input:*,5,*w0*
+# KEY_POWER
+id-input:modalias:input:*,1,*k*74*
+# KEY_F16
+id-input:modalias:input:*,1,*k*BA*
  STEAMOS_POWER_BUTTON=1
 
 # Temporary scancode overrides -- remove these once they get upstreamed into systemd
