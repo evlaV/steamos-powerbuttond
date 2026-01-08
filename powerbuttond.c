@@ -122,17 +122,17 @@ out:
 	return num_devs;
 }
 
-void do_press(const char* type) {
+void steam_message(const char* type) {
 	char steam[PATH_MAX];
-	char press[32];
+	char message[32];
 	char* home = getenv("HOME");
-	char* const args[] = {steam, "-ifrunning", press, NULL};
+	char* const args[] = {steam, "-ifrunning", message, NULL};
 
 	alarm(0);
 	got_alarm = false;
 
 	snprintf(steam, sizeof(steam), "%s/.steam/root/ubuntu12_32/steam", home);
-	snprintf(press, sizeof(press), "steam://%spowerpress", type);
+	snprintf(message, sizeof(message), "steam://%s", type);
 
 	pid_t pid;
 	if (posix_spawn(&pid, steam, NULL, NULL, args, environ) < 0) {
@@ -189,7 +189,7 @@ int main(int argc, char* argv[]) {
 		int res = poll(pfds, num_devs, -1);
 		if (res < 0 && errno == EINTR && press_active && got_alarm) {
 			press_active = false;
-			do_press("long");
+			steam_message("longpowerpress");
 		} else if (res <= 0) {
 			continue;
 		}
@@ -216,7 +216,7 @@ int main(int argc, char* argv[]) {
 							alarm(1);
 						} else if (ev.value == 0 && press_active) {
 							press_active = false;
-							do_press("short");
+							steam_message("shortpowerpress");
 						}
 						break;
 					case KEY_LEFTSHIFT:
@@ -270,20 +270,20 @@ int main(int argc, char* argv[]) {
 					case KEY_F16:
 						if (ev.value == 1 && (ctx->modifiers & MOD_META) && !(ctx->modifiers & ~MOD_META)) {
 							press_active = false;
-							do_press("long");
+							steam_message("longpowerpress");
 						}
 						break;
 					}
 				} else if (ev.type == EV_SW) {
 					if (ev.code == SW_LID && ev.value == 1) {
 						press_active = false;
-						do_press("short");
+						steam_message("lidswitch");
 					}
 				}
 			} while (libevdev_has_event_pending(ctx->dev) > 0);
 			if (res == -EINTR && press_active && got_alarm) {
 				press_active = false;
-				do_press("long");
+				steam_message("longpowerpress");
 			}
 		}
 	}
