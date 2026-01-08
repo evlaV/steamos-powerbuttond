@@ -20,8 +20,10 @@
 #define MAX_DEVS 2
 
 extern char** environ;
+static bool got_alarm = false;
 
 void signal_handler(int) {
+	got_alarm = true;
 }
 
 struct libevdev* open_dev(const char* path) {
@@ -104,6 +106,7 @@ void do_press(const char* type) {
 	char* const args[] = {steam, "-ifrunning", press, NULL};
 
 	alarm(0);
+	got_alarm = false;
 
 	snprintf(steam, sizeof(steam), "%s/.steam/root/ubuntu12_32/steam", home);
 	snprintf(press, sizeof(press), "steam://%spowerpress", type);
@@ -162,7 +165,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		int res = poll(pfds, num_devs, -1);
-		if (res < 0 && errno == EINTR && press_active) {
+		if (res < 0 && errno == EINTR && press_active && got_alarm) {
 			press_active = false;
 			do_press("long");
 		} else if (res <= 0) {
@@ -202,7 +205,7 @@ int main(int argc, char* argv[]) {
 					}
 				}
 			} while (libevdev_has_event_pending(devs[i]) > 0);
-			if (res == -EINTR && press_active) {
+			if (res == -EINTR && press_active && got_alarm) {
 				press_active = false;
 				do_press("long");
 			}
