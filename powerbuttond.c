@@ -224,6 +224,10 @@ int main(int argc, char* argv[]) {
 
 		for (i = 0; i < num_devs; ++i) {
 			struct evdev_context* ctx = &devs[i];
+			if ((pfds[i].revents & (POLLERR | POLLHUP)) == (POLLERR | POLLHUP)) {
+				got_hup = true;
+				break;
+			}
 			if (!(pfds[i].revents & POLLIN)) {
 				continue;
 			}
